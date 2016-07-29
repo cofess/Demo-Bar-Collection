@@ -105,8 +105,8 @@
  * @returns {Boolean} 
  */  
 function getUrlPar(url, key) {
-  var reg = /(.*)\.([^\.]+)/g;//去掉最后一个.
-  url = url.replace(reg, "$1");
+  //var reg = /(.*)\.([^\.]+)/g;//去掉最后一个.
+  //url = url.replace(reg, "$1");
   //console.log(url); 
   if (url.indexOf('?') != -1) {  
     var url_arr1 = url.split('?');  
@@ -136,13 +136,18 @@ jQuery(window).load(function() {
   });
 });
 
+var frame = document.getElementById("frame");
+frame = (frame.contentWindow) ? frame.contentWindow : (frame.contentDocument.document) ? frame.contentDocument.document : frame.contentDocument;
+console.log(window.location);
+console.log(window.location.href);
+console.log(getUrlPar(window.location.href,'url'));//获取Debug参数
+var src=""+getUrlPar(window.location.href,'url');
+console.log(src);
+if(src){
+	$("#frame").attr("src",src); 
+}
 document.getElementById("frame").onload = function() {
-	var frame = document.getElementById("frame");
-	frame = (frame.contentWindow) ? frame.contentWindow : (frame.contentDocument.document) ? frame.contentDocument.document : frame.contentDocument;
-	//console.log(frame.location); 
-    //console.log(frame.location.href);
-    //console.log(getUrlPar(frame.location.pathname,'debug'));//获取Debug参数
-	if (!this.src || this.src === window.location.href || /blank/.test(this.contentWindow.location.href)) {
+	//if (!this.src || this.src === window.location.href || /blank/.test(this.contentWindow.location.href)) {
 		var div = document.createElement('div');
 		div.style.width = '800px';
 		div.style.maxWidth = '90%';
@@ -153,8 +158,8 @@ document.getElementById("frame").onload = function() {
 		div.style.backgroundColor = '#F1F1F1';
 		div.style.borderRadius = '.3em';
 		div.innerHTML = '请在上侧控制面板输入您的网站链接，点击<b>预览</b>显示到此屏幕来预览插件功能。<br/>您可以点击右侧按钮分别体验不同风格的插件。';
-		frame.body.appendChild(div);
-	}
+		//frame.body.appendChild(div);
+	//}
 };
 </script>
 </body>
