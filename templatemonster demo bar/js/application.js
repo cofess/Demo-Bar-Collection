@@ -334,7 +334,7 @@ if (0 < $("#demo-page").length) {
         }).removeClass("closed");
         $("#headerlivedemo .trigger").toggle(function() {
             $(".js-popup-content").hide();
-            $(this).removeClass("icon-arrow-small-up").addClass("icon-arrow-small-down");
+            $(this).removeClass("fa fa-angle-up").addClass("fa fa-angle-down");
             $("#advanced").addClass("closed").animate({
                 marginTop: b
             },
@@ -342,11 +342,11 @@ if (0 < $("#demo-page").length) {
             function() {
                 calcHeight()
             });
-            strCookies2 = $.cookie("panel2", null);
-            strCookies = $.cookie("panel", "boo")
+            //strCookies2 = $.cookie("panel2", null);
+            //strCookies = $.cookie("panel", "boo")
         },
         function() {
-            $(this).removeClass("icon-arrow-small-down").addClass("icon-arrow-small-up");
+            $(this).removeClass("fa fa-angle-down").addClass("fa fa-angle-up");
             $("#advanced").removeClass("closed").animate({
                 marginTop: "0px"
             },
