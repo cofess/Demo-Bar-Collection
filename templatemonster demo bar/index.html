@@ -90,7 +90,7 @@
 		<!--<iframe id="frame" src="http://www.chinaso.com/"> 
 			[Your user agent does not support frames or is currently configured not to display frames. However, you may visit the related document.] 
 		</iframe>-->
-		<iframe class="show-url" id="frame" src="http://www.chinaso.com/" frameborder="0"></iframe>
+		<iframe class="show-url" id="frame" src="" frameborder="0"></iframe>
 	</div>
 </div>
 <script src="https://cdn.bootcss.com/jquery/1.8.3/jquery.min.js"></script>
@@ -124,8 +124,8 @@ function getUrlPar(url, key) {
     if (url_arr2[k] == key) {  
       return url_arr2[parseInt(k) + 1];  
     }  
-  }  
-  return false;  
+  } 
+  return "";
 } 
 
 jQuery(window).load(function() {
@@ -141,13 +141,17 @@ frame = (frame.contentWindow) ? frame.contentWindow : (frame.contentDocument.doc
 console.log(window.location);
 console.log(window.location.href);
 console.log(getUrlPar(window.location.href,'url'));//获取Debug参数
-var src=""+getUrlPar(window.location.href,'url');
+var src=getUrlPar(window.location.href,'url');
 console.log(src);
 if(src){
 	$("#frame").attr("src",src); 
 }
+console.log(this.src);
 document.getElementById("frame").onload = function() {
+	//alert(1);
+	console.log(this.src);
 	//if (!this.src || this.src === window.location.href || /blank/.test(this.contentWindow.location.href)) {
+	if (!this.src || this.src === window.location.href) {
 		var div = document.createElement('div');
 		div.style.width = '800px';
 		div.style.maxWidth = '90%';
@@ -158,8 +162,31 @@ document.getElementById("frame").onload = function() {
 		div.style.backgroundColor = '#F1F1F1';
 		div.style.borderRadius = '.3em';
 		div.innerHTML = '请在上侧控制面板输入您的网站链接，点击<b>预览</b>显示到此屏幕来预览插件功能。<br/>您可以点击右侧按钮分别体验不同风格的插件。';
-		//frame.body.appendChild(div);
-	//}
+		document.getElementById("frame").body.appendChild(div);
+		alert(1);
+	}
+};
+</script>
+<script>
+var frame = document.getElementById('frame');
+frame.onload = function() {
+	if (!this.src || this.src === window.location.href || /blank/.test(this.contentWindow.location.href)) {
+		var div = document.createElement('div');
+		div.style.width = '800px';
+		div.style.maxWidth = '90%';
+		div.style.margin = '5em auto';
+		div.style.lineHeight = '3em';
+		div.style.padding = '4em 1em';
+		div.style.fontSize = '1.2em';
+		div.style.backgroundColor = '#F1F1F1';
+		div.style.borderRadius = '.3em';
+		div.innerHTML = '请在上侧控制面板输入您的网站链接，点击<b>预览</b>显示到此屏幕来预览插件功能。<br/>您可以点击右侧按钮分别体验不同风格的插件。';
+		frame.contentWindow.document.body.appendChild(div);
+	}
+};
+
+window.onload = function() {
+	frame.src = getUrlPar(window.location.href,'url');
 };
 </script>
 </body>
